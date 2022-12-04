@@ -1,0 +1,10 @@
+#!/bin/bash
+scd=$(dirname "$0")
+sc=$(basename "$scd")
+cd "$scd" || exit 1
+
+
+# echo -n | gradle is so that gradle won't swallow stdin, leaving it available for the script
+echo -n | ./gradlew shadowJar --warning-mode none 1>/dev/null || exit 1
+
+java -jar ./build/libs/$sc-all.jar $@
