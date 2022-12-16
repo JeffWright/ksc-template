@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.JeffWright:scriptutils:0.6.3")
+    implementation("com.github.JeffWright:scriptutils:+")
     implementation("com.github.ajalt.clikt:clikt:3.5.0")
     implementation("com.github.holgerbrandl:kscript-support-api:1.2.5")
 

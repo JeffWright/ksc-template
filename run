@@ -1,10 +1,25 @@
 #!/bin/bash
+origdir=$(pwd)
 scd=$(dirname "$0")
 sc=$(basename "$scd")
 cd "$scd" || exit 1
 
+if test -f md5.txt; then
+#  echo "md5.txt exists, copying to old_md5.txt"
+  mv md5.txt old_md5.txt
+fi
 
-# echo -n | gradle is so that gradle won't swallow stdin, leaving it available for the script
-echo -n | ./gradlew shadowJar --warning-mode none 1>/dev/null || exit 1
+find src -type f -exec md5 '{}' \; > md5.txt
 
-java -jar ./build/libs/$sc-all.jar $@
+if ! diff old_md5.txt md5.txt 1>/dev/null; then
+  # echo "changes!!"
+  # echo -n | gradle is so that gradle won't swallow stdin, leaving it available for the script
+  echo -n | ./gradlew shadowJar --warning-mode none 1>/dev/null || exit 1
+#else
+  # echo "no changes!"
+fi
+
+rm old_md5.txt
+
+cd $origdir
+java -jar $scd/build/libs/$sc-all.jar $@
