@@ -11,15 +11,18 @@ fi
 
 find src -type f -exec md5 '{}' \; > md5.txt
 
-if ! diff old_md5.txt md5.txt 1>/dev/null; then
+if !(test -f old_md5.txt) || !(diff old_md5.txt md5.txt 1>/dev/null); then
   # echo "changes!!"
+  >&2 echo "Compiling... (future runs will be faster)"
   # echo -n | gradle is so that gradle won't swallow stdin, leaving it available for the script
   echo -n | ./gradlew shadowJar --warning-mode none 1>/dev/null || exit 1
-#else
+# else
   # echo "no changes!"
 fi
 
-rm old_md5.txt
+if test -f old_md5.txt; then
+    rm old_md5.txt
+fi
 
-cd "$origdir"
+cd $origdir
 java -jar $scd/build/libs/$sc-all.jar $@
