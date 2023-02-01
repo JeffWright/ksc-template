@@ -25,4 +25,4 @@ if test -f old_md5.txt; then
 fi
 
 cd $origdir
-java -jar $scd/build/libs/$sc-all.jar $@
+java -jar $scd/build/libs/$sc-all.jar "$@"
