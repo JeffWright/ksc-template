@@ -1,6 +1,7 @@
 #!/bin/bash
 origdir=$(pwd)
-scd=$(dirname "$0")
+runfile=$(readlink -f "$0") # becaue we might be called via symlink
+scd=$(dirname "$runfile")
 sc=$(basename "$scd")
 cd "$scd" || exit 1
 
