@@ -17,7 +17,7 @@ if !(test -f old_md5.txt) || !(diff old_md5.txt md5.txt 1>/dev/null); then
   >&2 echo "Compiling... (future runs will be faster)"
   # echo -n | gradle is so that gradle won't swallow stdin, leaving it available for the script
   if echo -n | ./gradlew shadowJar --warning-mode none 1>/dev/null; then
-      echo "Success!"
+      >&2 echo "Success!"
   else
       rm md5.txt
       exit 1

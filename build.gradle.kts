@@ -3,7 +3,7 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 
 plugins {
-    kotlin("jvm") version "1.6.21"
+    kotlin("jvm") version "2.0.21"
     application
     id("com.github.johnrengelman.shadow") version "7.0.0"
     id("com.ncorti.ktfmt.gradle") version "0.11.0"
@@ -20,7 +20,6 @@ dependencies {
     implementation("com.github.JeffWright:scriptutils:+")
     implementation("com.github.ajalt.clikt:clikt:3.5.0")
     implementation("com.github.holgerbrandl:kscript-support-api:1.2.5")
-
 }
 
 tasks.withType<KotlinCompile> {
